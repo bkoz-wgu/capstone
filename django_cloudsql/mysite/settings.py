@@ -87,9 +87,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'polls',
-        'USER': '<your-database-user>',
-        'PASSWORD': '<your-database-password>',
-        'PORT': '5432',
+        'USER': 'postgres',
+        'PASSWORD': 'i79pgmBFBOnaJt4g',
+        'PORT': '5400',
     }
 }
 
