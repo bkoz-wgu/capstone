@@ -342,7 +342,7 @@ def updateStudentStats(username):
 
 
         #find 4 section averages and overall average from most 3 recent Tests
-        a = [1,1,1]
+        a = [0,1,2]
         for i in a:
             total_cat_1 += int(recent_tests[i].avg1)
             total_cat_2 += int(recent_tests[i].avg2)

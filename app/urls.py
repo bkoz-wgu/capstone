@@ -46,10 +46,6 @@ urlpatterns = [
     path('create_test/',views.process_create_test,name="create_test"),
     path('create_question',views.process_create_question,name="create_question"),
     path('create_question/',views.process_create_question,name="create_question"),
-    path('import_questions',views.import_questions,name="import_questions"),
-    path('import_questions/',views.import_questions,name="import_questions"),
-    path('import_test',views.import_test,name="import_test"),
-    path('import_test/',views.import_test,name="import_test"),
 
     path('upload_questions',views.upload_questions,name="upload_questions"),
     path('upload_questions/',views.upload_questions,name="upload_questions"),
@@ -58,7 +54,15 @@ urlpatterns = [
     path('student_test_data/<int:student_data_id>', views.student_test_data, name='student_test_data-chart'),
     path('student_test_data/<int:student_data_id>/', views.student_test_data, name='student_test_data-chart'),
 
-    path('download/<str:filename>', views.download_file,name="download_file")
+    path('download/<str:filename>', views.download_file,name="download_file"),
+
+    # manual admin-only functions
+    path('import_questions',views.import_questions,name="import_questions"),
+    path('import_questions/',views.import_questions,name="import_questions"),
+    path('import_test',views.import_test,name="import_test"),
+    path('import_test/',views.import_test,name="import_test"),
+    path('recalc_grades',views.recalc_grades,name="recalc_grades"),
+    path('recalc_grades/',views.recalc_grades,name="recalc_grades"),
 
 
 

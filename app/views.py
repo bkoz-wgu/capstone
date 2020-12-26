@@ -310,6 +310,10 @@ def upload_questions(request):
     })
 
 
+def recalc_grades(request):
+    #updateStudentStats('hgranger')
+    tests = Test_Data.objects.order_by("-pk")
+    return render(request, 'tests/tests.html', {'tests':tests})
 
 
 
