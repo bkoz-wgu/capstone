@@ -285,7 +285,7 @@ def upload_test(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            test_name= 'tests/' + Document.objects.order_by("-pk")[0].document.name
+            test_name= 'media/' + Document.objects.order_by("-pk")[0].document.name
             importStudentTest(test_name)
             return render(request, "tests/upload_test.html", {"message":"Upload Successful"})
     else:
@@ -300,7 +300,7 @@ def upload_questions(request):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            doc_name= 'tests/' + Document.objects.order_by("-pk")[0].document.name
+            doc_name= 'media/' + Document.objects.order_by("-pk")[0].document.name
             importQuestions(doc_name)
             return render(request, "tests/upload_questions.html", {"message":"Upload Successful"})
     else:
