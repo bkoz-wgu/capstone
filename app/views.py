@@ -153,7 +153,7 @@ def run_test(request,test_data_id):
 
 def import_questions(request):
     categories = Category.objects.order_by("pk")
-    test_name= 'tests/uploads/test_name.csv'
+    test_name= 'media/uploads/test_name.csv'
     importQuestions(test_name)
     return render(request, 'tests/index.html', {'categories':categories})
 
@@ -161,7 +161,7 @@ def import_questions(request):
 
 def import_test(request):
     categories = Category.objects.order_by("pk")
-    test_name= 'tests/uploads/test_name.csv'
+    test_name= 'media/uploads/test_name.csv'
     importStudentTest(test_name)
     tests = Test_Data.objects.order_by("pk")
     return render(request, 'tests/tests.html', {'tests':tests})
