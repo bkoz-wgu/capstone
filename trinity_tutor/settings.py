@@ -26,7 +26,7 @@ SECRET_KEY = ')&p8nubb$eo%m*z397=owuysy6il13oj!n3dzej64k8cjh147u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kozura-tutorial.azurewebsites.net', 'kozura-tutorial-app.azurewebsites.net', 'kozura-capstone.azurewebsites.net/']
+ALLOWED_HOSTS = ['127.0.0.1', 'https://kozura-tutorial.azurewebsites.net', 'https://kozura-tutorial-app.azurewebsites.net', 'https://kozura-capstone.azurewebsites.net/']
 
 
 # Application definition
@@ -76,16 +76,27 @@ WSGI_APPLICATION = 'trinity_tutor.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'edudatabase',
+#        'USER': 'postgresql@edudatabase',
+#        'HOST':'edudatabase.postgres.database.azure.com',
+#        'PASSWORD': 'i79pgmBFBOnaJt4g',
+#        'PORT': '5432',
+#        "SSL MODE":"require"
+#    }
+#}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'polls',
-        'USER': 'postgres@edudatabase',
-        'HOST':'edudatabase.postgres.database.azure.com',
-        'PASSWORD': 'i79pgmBFBOnaJt4g',
-        'PORT': '5432',
+        'NAME': 'edudatabase',
+        'HOST': "edudatabase.postgres.database.azure.com",
+        'USER': "postgresql@edudatabase",
+        'PASSWORD': "i79pgmBFBOnaJt4g"
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
