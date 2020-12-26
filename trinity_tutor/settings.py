@@ -56,7 +56,7 @@ ROOT_URLCONF = 'trinity_tutor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'polls',
-        'USER': 'postgres',
-        'HOST':'104.198.57.234',
+        'USER': 'postgres@edudatabase',
+        'HOST':'edudatabase.postgres.database.azure.com',
         'PASSWORD': 'i79pgmBFBOnaJt4g',
         'PORT': '5432',
     }
