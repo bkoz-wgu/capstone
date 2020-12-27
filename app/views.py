@@ -67,7 +67,7 @@ def class_detail_from_teacher_username(request,teacher_username):
         return render(request, 'tests/index.html')
     else:
         class_data_id = Class_Section.objects.filter(teacher_username=teacher_username)[0].id
-        students = getStudentInClass(class_data_id)
+        students = getStudenstInClass(class_data_id)
         return render(request, 'tests/class_dashboard.html', {'class':class_detail[0], 'students':students})
 
 

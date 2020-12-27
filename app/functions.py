@@ -21,7 +21,7 @@ class category_data:
 
 
 
-def getStudentInClass(class_data_id):
+def getStudentsInClass(class_data_id):
     class_section = Class_Section.objects.filter(id=class_data_id)[0]
     class_assignments = Class_Assignment.objects.filter(class_section=class_section)
     student_filter = Q()

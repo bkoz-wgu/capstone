@@ -11,7 +11,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
 
-] 
-
+]
 urlpatterns += static(settings.STATIC_URL,documents_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL,documents_root=settings.MEDIA_ROOT)
