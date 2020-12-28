@@ -40,6 +40,9 @@ class Test_Data(models.Model):
     def __str__(self):
         return self.test_name
 
+
+
+
 class Student_Data(models.Model):
     student_name =  models.CharField(max_length=60)
     username =  models.CharField(max_length=60)
@@ -48,6 +51,11 @@ class Student_Data(models.Model):
     average_t2 = models.CharField(max_length=3)
     average_t3 = models.CharField(max_length=3)
     average_t4 = models.CharField(max_length=3)
+    cat1_count =models.CharField(max_length=4, default=0)
+    cat2_count =models.CharField(max_length=4, default=0)
+    cat3_count =models.CharField(max_length=4, default=0)
+    cat4_count =models.CharField(max_length=4, default=0)
+
     tests = models.ManyToManyField(Test_Data, through='Question_Attempt')
 
     def __str__(self):

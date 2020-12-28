@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'trinity_tutor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'edudatabase',
+        'NAME': 'capstone_db',
         'HOST': "edudatabase.postgres.database.azure.com",
         'USER': "postgresql@edudatabase",
         'PASSWORD': "i79pgmBFBOnaJt4g"

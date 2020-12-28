@@ -83,7 +83,10 @@ def student_dashboard(request,student_data_id):
     student_detail = get_object_or_404(Student_Data,pk=student_data_id)
     student_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=True).order_by("-pk")
     ungraded_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=False).order_by("pk")
-    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests,'ungraded_tests': ungraded_tests,'categories':categories})
+    student_cat_counts =getStudentCatCounts(student_detail.username);
+    #student_counts = Student_Cat_Counts.objects.filter(username=student_detail.username)[0]
+    #updateStudentCatCounts(student_detail.username);
+    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests, 'ungraded_tests': ungraded_tests,'categories':categories, 'student_cat_counts':student_cat_counts})
 
 
 def student_dashboard_from_username(request,student_data_username):
@@ -92,7 +95,9 @@ def student_dashboard_from_username(request,student_data_username):
     student_detail = get_object_or_404(Student_Data,pk=student_data.id)
     student_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=True).order_by("-pk")
     ungraded_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=False).order_by("pk")
-    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests, 'ungraded_tests': ungraded_tests,'categories':categories})
+    student_cat_counts =getStudentCatCounts(student_data_username);
+    #updateStudentCatCounts(student_detail.username);
+    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests, 'ungraded_tests': ungraded_tests,'categories':categories, 'student_cat_counts':student_cat_counts})
 
 
 
@@ -161,8 +166,12 @@ def import_questions(request):
 
 def import_test(request):
     categories = Category.objects.order_by("pk")
-    test_name= 'media/uploads/test_name.csv'
-    importStudentTest(test_name)
+
+    importStudentTest('media/uploads/sgamgee_1.csv')
+    importStudentTest('media/uploads/sgamgee_2.csv')
+    importStudentTest('media/uploads/sgamgee_3.csv')
+    importStudentTest('media/uploads/sgamgee_4.csv')
+
     tests = Test_Data.objects.order_by("pk")
     return render(request, 'tests/tests.html', {'tests':tests})
 
@@ -310,8 +319,19 @@ def upload_questions(request):
     })
 
 
+
+def test_script_page(request):
+    #updateStudentStats('sgamgee')
+    categories = Category.objects.order_by("pk")
+    student_detail = get_object_or_404(Student_Data,pk=1)
+    student_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=True).order_by("-pk")
+    ungraded_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=False).order_by("pk")
+    return render(request, 'tests/scripts.html', {'student':student_detail, 'tests': student_tests,'ungraded_tests': ungraded_tests,'categories':categories})
+
+
+
 def recalc_grades(request):
-    #updateStudentStats('hgranger')
+    #updateStudentStats('sgamgee')
     tests = Test_Data.objects.order_by("-pk")
     return render(request, 'tests/tests.html', {'tests':tests})
 

@@ -63,7 +63,8 @@ urlpatterns = [
     path('import_test/',views.import_test,name="import_test"),
     path('recalc_grades',views.recalc_grades,name="recalc_grades"),
     path('recalc_grades/',views.recalc_grades,name="recalc_grades"),
-
+    path('test_script_page',views.test_script_page,name="test_script_page"),
+    path('test_script_page/',views.test_script_page,name="test_script_page"),
 
 
 

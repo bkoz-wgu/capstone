@@ -34,7 +34,54 @@ def getClassData(teacher_username):
     x = 0
 
 
+def updateStudentCatCounts(student_data_username):
+    student_tests = Test_Data.objects.filter(student_username=student_data_username, graded=True)
+    cat1_count = 0
+    cat2_count = 0
+    cat3_count = 0
+    cat4_count = 0
 
+    for test in student_tests:
+        new_qas = Question_Attempt.objects.filter(test=test)
+        for qa in new_qas:
+            if (int(qa.question.category_id) ==1):
+                cat1_count +=1
+            elif (int(qa.question.category_id) ==2):
+                cat2_count +=1
+            elif (int(qa.question.category_id) ==3):
+                cat3_count +=1
+            elif (int(qa.question.category_id) ==4):
+                cat4_count +=1
+
+    this_student= Student_Data.objects.filter(username=student_data_username)
+    this_student.update(
+        cat1_count = cat1_count,
+        cat2_count = cat2_count,
+        cat3_count = cat3_count,
+        cat4_count = cat4_count,
+    )
+
+
+def getStudentCatCounts(student_data_username):
+    student_tests = Test_Data.objects.filter(student_username=student_data_username, graded=True)
+    cat1_count = 0
+    cat2_count = 0
+    cat3_count = 0
+    cat4_count = 0
+
+    for test in student_tests:
+        new_qas = Question_Attempt.objects.filter(test=test)
+        for qa in new_qas:
+            if (int(qa.question.category_id) ==1):
+                cat1_count +=1
+            elif (int(qa.question.category_id) ==2):
+                cat2_count +=1
+            elif (int(qa.question.category_id) ==3):
+                cat3_count +=1
+            elif (int(qa.question.category_id) ==4):
+                cat4_count +=1
+
+    return [cat1_count, cat2_count,cat3_count, cat4_count]
 
 
 
@@ -77,8 +124,9 @@ def getStudentTestData(student_data_id):
         cat4_scores = []
         goal_scores = []
         categories = Category.objects.order_by("pk")
-        student_tests = Test_Data.objects.filter(student_username=student_detail.username).order_by("pk")
+        student_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=True).order_by("pk")
         labels = []
+
         labels.append("Overall Score")
         for cat in categories:
             labels.append(cat.category_name)
@@ -91,6 +139,8 @@ def getStudentTestData(student_data_id):
             cat3_scores.append(test.avg3)
             cat4_scores.append(test.avg4)
             goal_scores.append(test.goal_score)
+
+
 
         data={ 'labels': labels,
             'test_ids': test_ids,
@@ -258,7 +308,7 @@ def getAllTestQuestions(test_id):
 
 def submitRunTest(data):
     # create object from json
-    name_string ='tests/uploads/'+ data["uname"] + "_test_" + str(data["test_id"]) + ".csv"
+    name_string ='media/uploads/'+ data["uname"] + "_test_" + str(data["test_id"]) + ".csv"
     with open(name_string, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["student_username", data["uname"]])
@@ -341,9 +391,10 @@ def updateStudentStats(username):
         overall_avg = 0
 
 
-        #find 4 section averages and overall average from most 3 recent Tests
+        # Find 4 section averages and overall average from most 3 recent Tests
         a = [0,1,2]
         for i in a:
+
             total_cat_1 += int(recent_tests[i].avg1)
             total_cat_2 += int(recent_tests[i].avg2)
             total_cat_3 += int(recent_tests[i].avg3)
@@ -351,12 +402,19 @@ def updateStudentStats(username):
             overall_total += int(recent_tests[i].score)
 
 
+        # Find weighted expected score
+        expected_score = 0
+        i=0
+        weight_ratio =[0.65, 0.2, 0.15]
+        for ratio in weight_ratio:
+            overall_avg  += int(math.floor(float(recent_tests[i].score) * ratio))
+            i+=1
 
         avg_cat_1 = math.floor(total_cat_1/3)
         avg_cat_2 = math.floor(total_cat_2/3)
         avg_cat_3 = math.floor(total_cat_3/3)
         avg_cat_4 = math.floor(total_cat_4/3)
-        overall_avg = math.floor(overall_total/3)
+
 
         student_query.update(
             average_total = overall_avg,
@@ -527,3 +585,4 @@ def importStudentTest(csv_file_loc):
             graded = True
         )
         updateStudentStats(import_student_username)
+        updateStudentCatCounts(import_student_username)

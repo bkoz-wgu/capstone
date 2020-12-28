@@ -20,6 +20,9 @@
     .card-body.shaded{
       background-color:#f7f7f7;
     }
+    #canvas_cat1_count, #canvas_cat2_count, #canvas_cat3_count, #canvas_cat4_count{
+      padding-right:10px;
+    }
 
     .card-score{
       font-size: 1.5em;
@@ -34,7 +37,7 @@
       display:inline-block!Important;
     }
 
-    canvas{
+    #student_test_data{
           padding-right: 2em;
     }
     .col-20-perc{width:19%;}
@@ -53,15 +56,28 @@
      <div>
     <div class="row">
       <div class="col-md-3">
-        <div class="card mb-3 shadow-sm"><div class="card-body"><p class="cat-text">{{categories.0.category_name}}</p><p class="card-score">{{student.average_t1}}</p></div></div></div>
+        <div class="card mb-3 shadow-sm"> <div class="card-body"><p class="cat-text">{{categories.0.category_name}}</p><p class="card-score">{{student.average_t1}}</p>
+            <div id="container" style="">
+      		<canvas id="canvas_cat1_count" style="overflow:visible"></canvas>
+      	</div>
+      </div></div></div>
       <div class="col-md-3">
-        <div class="card mb-3 shadow-sm"><div class="card-body"><p class="cat-text">{{categories.1.category_name}}</p><p class="card-score">{{student.average_t2}}</p></div></div></div>
+        <div class="card mb-3 shadow-sm"><div class="card-body"><p class="cat-text">{{categories.1.category_name}}</p><p class="card-score">{{student.average_t2}}</p>
+        <div id="container" style="">
+      		<canvas id="canvas_cat2_count" style="overflow:visible"></canvas>
+      	</div></div></div></div>
       <div class="col-md-3">
-        <div class="card mb-3 shadow-sm"><div class="card-body"><p class="cat-text">{{categories.2.category_name}}</p><p class="card-score">{{student.average_t3}}</p></div></div></div>
+        <div class="card mb-3 shadow-sm"><div class="card-body"><p class="cat-text">{{categories.2.category_name}}</p><p class="card-score">{{student.average_t3}}</p>
+        <div id="container" style="">
+      		<canvas id="canvas_cat3_count" style="overflow:visible"></canvas>
+      	</div></div></div></div>
       <div class="col-md-3">
-        <div class="card mb-3 shadow-sm"><div class="card-body"><p class="cat-text">{{categories.3.category_name}}</p><p class="card-score">{{student.average_t4}}</p></div></div></div>
+        <div class="card mb-3 shadow-sm"><div class="card-body"><p class="cat-text">{{categories.3.category_name}}</p><p class="card-score">{{student.average_t4}}</p>
+        <div id="container" style="">
+      		<canvas id="canvas_cat4_count" style="overflow:visible"></canvas>
+      	</div></div></div></div>
     </div>
-        <div>   <canvas id="student_test_data" data-url="/app/student_test_data/{{student.id}}"></canvas>  </div>
+        <div>   <br><br><canvas id="student_test_data" data-url="/app/student_test_data/{{student.id}}"></canvas>  </div>
 
 
 
@@ -126,7 +142,67 @@
 
 
 
+                      var color = Chart.helpers.color;
+                      var  cat1_chart_data = {
+                  			labels: ['Questions attempted'],
+                  			datasets: [{
+                  				label: '',
+                  				backgroundColor: color(window.chartColors.red).alpha(0.8).rgbString(),
+                  				borderColor: window.chartColors.red,
+                  				borderWidth: 1,
+                  				data: [
+                  				{{student_cat_counts.0}},
 
+                  				]
+                  			}]
+
+                  		};
+
+                      var  cat2_chart_data = {
+                        labels: ['Questions attempted'],
+                        datasets: [{
+                          label: '',
+                          backgroundColor: color(window.chartColors.green).alpha(0.8).rgbString(),
+                          borderColor: window.chartColors.green,
+                          borderWidth: 1,
+                          data: [
+                          {{student_cat_counts.1}},
+
+                          ]
+                        }]
+
+                      };
+
+                      var  cat3_chart_data = {
+                        labels: ['Questions attempted'],
+                        datasets: [{
+                          label: '',
+                          backgroundColor: color(window.chartColors.yellow).alpha(0.8).rgbString(),
+                          borderColor: window.chartColors.yellow,
+                          borderWidth: 1,
+                          data: [
+                          {{student_cat_counts.2}},
+
+
+                          ]
+                        }]
+
+                      };
+
+                      var  cat4_chart_data = {
+                        labels: ['Questions attempted'],
+                        datasets: [{
+                          label: '',
+                          backgroundColor: color(window.chartColors.blue).alpha(0.8).rgbString(),
+                          borderColor: window.chartColors.blue,
+                          borderWidth: 1,
+                          data: [
+                          {{student_cat_counts.3}},
+
+                          ]
+                        }]
+
+                      };
 
 
           var $testChart = $("#student_test_data");
@@ -217,6 +293,7 @@
                        }
                      }
                    });
+                 }});
 
 
           var COLORS = [
@@ -237,14 +314,312 @@
 
 
 
-                               }
-                             });
+                          window.onload = function() {
+                            var ctx_cat1 = document.getElementById('canvas_cat1_count').getContext('2d');
+                            window.myHorizontalBar = new Chart(ctx_cat1, {
+                              type: 'horizontalBar',
+                              data: cat1_chart_data,
+                              options: {
+                                // Elements options apply to all of the options unless overridden in a dataset
+                                // In this case, we are setting the border of each horizontal bar to be 2px wide
+                                layout: {
+                                 padding: {
+                                     left: 0,
+                                     right: 0,
+                                     top: 20,
+                                     bottom: 20
+                                 }
+                               },
+                                  elements: {
+                                  rectangle: {
+                                    borderWidth: 1,
+                                  }
+                                },
+                                responsive: true,
+                                aspectRatio:2,
+                                legend: {
+                                  display: false,
+                                },
+                                title: {
+                                  display: false,
+                                },
+                                scales: {
+                                  xAxes: [{
+                                    gridLines: {
+                                      display: false,
+                                    },
+                                    ticks: {
+                                      min: 0,
+                                      max: 40,
+                                      stepSize: 20,
+                                      /*  callback: function(dataLabel, index) {
+                                          return index % 2 === 0 ? dataLabel : '';
+
+                                        }*/
+                                    },
+
+                                  }],
+                                  yAxes: [{
+                                    gridLines: {
+                                      display: false,
+                                    },	ticks: {
+                                        callback: function(dataLabel, index) {
+                                            return  '';
+                                            }
+                                      }
+                                  }]
+                                },tooltips: {
+                                mode: 'index',
+                                callbacks: {
+                                  // Use the footer callback to display the sum of the items showing in the tooltip
+                                  footer: function(tooltipItems, data) {
+
+                                    return 'Minimum Recommended: 30';
+                                  },
+                                },
+                                footerFontStyle: 'normal'
+                              },
+                              hover: {
+                                mode: 'index',
+                                intersect: true
+                              },
+                              }
+                            });
+
+
+                     			var ctx_cat2 = document.getElementById('canvas_cat2_count').getContext('2d');
+                      			window.myHorizontalBar = new Chart(ctx_cat2, {
+                      				type: 'horizontalBar',
+                      				data: cat2_chart_data,
+                      				options: {
+                      					// Elements options apply to all of the options unless overridden in a dataset
+                      					// In this case, we are setting the border of each horizontal bar to be 2px wide
+                                layout: {
+                                 padding: {
+                                     left: 0,
+                                     right: 0,
+                                     top: 20,
+                                     bottom: 20
+                                 }
+                               },
+                                 	elements: {
+                      						rectangle: {
+                      							borderWidth: 1,
+                      						}
+                      					},
+                      					responsive: true,
+                                aspectRatio:2,
+                      					legend: {
+                      						display: false,
+                      					},
+                      					title: {
+                      						display: false,
+                      					},
+                      					scales: {
+                      						xAxes: [{
+                      							gridLines: {
+                          						display: false,
+                          					},
+                      							ticks: {
+                                      min: 0,
+                                      max: 40,
+                                      stepSize: 20,
+                                      /*  callback: function(dataLabel, index) {
+                                          return index % 2 === 0 ? dataLabel : '';
+
+                                        }*/
+                      							},
+
+                      						}],
+                      						yAxes: [{
+                      							gridLines: {
+                          						display: false,
+                          					},	ticks: {
+                                        callback: function(dataLabel, index) {
+                                            return  '';
+                                            }
+                        							}
+                      						}]
+                      					},tooltips: {
+                      					mode: 'index',
+                      					callbacks: {
+                      						// Use the footer callback to display the sum of the items showing in the tooltip
+                      						footer: function(tooltipItems, data) {
+
+                                    return 'Minimum Recommended: 30';
+                      						},
+                      					},
+                      					footerFontStyle: 'normal'
+                      				},
+                      				hover: {
+                      					mode: 'index',
+                      					intersect: true
+                      				},
+                      				}
+                      			});
+
+
+
+
+
+
+                            var ctx_cat3 = document.getElementById('canvas_cat3_count').getContext('2d');
+                            window.myHorizontalBar = new Chart(ctx_cat3, {
+                              type: 'horizontalBar',
+                              data: cat3_chart_data,
+                              options: {
+                                // Elements options apply to all of the options unless overridden in a dataset
+                                // In this case, we are setting the border of each horizontal bar to be 2px wide
+                                layout: {
+                                 padding: {
+                                     left: 0,
+                                     right: 0,
+                                     top: 20,
+                                     bottom: 20
+                                 }
+                               },
+                                  elements: {
+                                  rectangle: {
+                                    borderWidth: 1,
+                                  }
+                                },
+                                responsive: true,
+                                aspectRatio:2,
+                                legend: {
+                                  display: false,
+                                },
+                                title: {
+                                  display: false,
+                                },
+                                scales: {
+                                  xAxes: [{
+                                    gridLines: {
+                                      display: false,
+                                    },
+                                    ticks: {
+                                      min: 0,
+                                      max: 40,
+                                      stepSize: 20,
+                                      /*  callback: function(dataLabel, index) {
+                                          return index % 2 === 0 ? dataLabel : '';
+
+                                        }*/
+                                    },
+
+                                  }],
+                                  yAxes: [{
+                                    gridLines: {
+                                      display: false,
+                                    },	ticks: {
+                                        callback: function(dataLabel, index) {
+                                            return  '';
+                                            }
+                                      }
+                                  }]
+                                },tooltips: {
+                                mode: 'index',
+                                callbacks: {
+                                  // Use the footer callback to display the sum of the items showing in the tooltip
+                                  footer: function(tooltipItems, data) {
+
+                                    return 'Minimum Recommended: 30';
+                                  },
+                                },
+                                footerFontStyle: 'normal'
+                              },
+                              hover: {
+                                mode: 'index',
+                                intersect: true
+                              },
+                              }
+                            });
+
+
+                      			var ctx_cat4 = document.getElementById('canvas_cat4_count').getContext('2d');
+                      			window.myHorizontalBar = new Chart(ctx_cat4, {
+                      				type: 'horizontalBar',
+                      				data: cat4_chart_data,
+                      				options: {
+                      					// Elements options apply to all of the options unless overridden in a dataset
+                      					// In this case, we are setting the border of each horizontal bar to be 2px wide
+                                layout: {
+                                 padding: {
+                                     left: 0,
+                                     right: 0,
+                                     top: 20,
+                                     bottom: 20
+                                 }
+                               },
+                                 	elements: {
+                      						rectangle: {
+                      							borderWidth: 1,
+                      						}
+                      					},
+                      					responsive: true,
+                                aspectRatio:2,
+                      					legend: {
+                      						display: false,
+                      					},
+                      					title: {
+                      						display: false,
+                      					},
+                      					scales: {
+                      						xAxes: [{
+                      							gridLines: {
+                          						display: false,
+                          					},
+                      							ticks: {
+                                      min: 0,
+                                      max: 40,
+                                      stepSize: 20,
+                                    /*  callback: function(dataLabel, index) {
+                                        return index % 2 === 0 ? dataLabel : '';
+
+                                      }*/
+                      							},
+
+                      						}],
+                      						yAxes: [{
+                      							gridLines: {
+                          						display: false,
+                          					},	ticks: {
+                                        callback: function(dataLabel, index) {
+                                            return  '';
+                                            }
+                        							}
+                      						}]
+                      					},tooltips: {
+                      					mode: 'index',
+                      					callbacks: {
+                      						// Use the footer callback to display the sum of the items showing in the tooltip
+                      						footer: function(tooltipItems, data) {
+
+                                    return 'Minimum Recommended: 30';
+                      						},
+                      					},
+                      					footerFontStyle: 'normal'
+                      				},
+                      				hover: {
+                      					mode: 'index',
+                      					intersect: true
+                      				},
+                      				}
+                      			});
+
+                      		};
+
+
+
+
        $( document ).ready(function() {
            if (document.getElementById("estimated_score").innerHTML =="n/a"){
              document.getElementsByClassName("hidden_unless_no_data").style.display="block";
              document.getElementsByClassName("hidden_if_no_data").style.display="none!important;";
            }
        });
+
+
+
 
 
 
