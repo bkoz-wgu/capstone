@@ -83,10 +83,7 @@ def student_dashboard(request,student_data_id):
     student_detail = get_object_or_404(Student_Data,pk=student_data_id)
     student_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=True).order_by("-pk")
     ungraded_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=False).order_by("pk")
-    student_cat_counts =getStudentCatCounts(student_detail.username);
-    #student_counts = Student_Cat_Counts.objects.filter(username=student_detail.username)[0]
-    #updateStudentCatCounts(student_detail.username);
-    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests, 'ungraded_tests': ungraded_tests,'categories':categories, 'student_cat_counts':student_cat_counts})
+    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests, 'ungraded_tests': ungraded_tests,'categories':categories})
 
 
 def student_dashboard_from_username(request,student_data_username):
@@ -95,9 +92,7 @@ def student_dashboard_from_username(request,student_data_username):
     student_detail = get_object_or_404(Student_Data,pk=student_data.id)
     student_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=True).order_by("-pk")
     ungraded_tests = Test_Data.objects.filter(student_username=student_detail.username, graded=False).order_by("pk")
-    student_cat_counts =getStudentCatCounts(student_data_username);
-    #updateStudentCatCounts(student_detail.username);
-    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests, 'ungraded_tests': ungraded_tests,'categories':categories, 'student_cat_counts':student_cat_counts})
+    return render(request, 'tests/student_dashboard.html', {'student':student_detail, 'tests': student_tests, 'ungraded_tests': ungraded_tests,'categories':categories})
 
 
 

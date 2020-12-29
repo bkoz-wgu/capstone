@@ -91,7 +91,8 @@
                 <div class="card mb-4 shadow-sm">
                         <div class="card-body shaded">
                           <p class="take-test-button" style="float:right;"><a href="/app/run_test/{{test.id}}">  <button>Take Test</button></a></p>
-                    <p class="card-text" style="font-size:1.2em;">{{test.test_name}}</p>
+                          <p class="card-text" style="font-size:1.2em;">{{test.test_name}}</p>
+
 
                         <p><small class="text-muted float_right">Test Id: {{test.id}}</small></p>
                     <div class="d-flex justify-content-between align-items-center">
@@ -110,7 +111,9 @@
                 <div class="card-body">
                   <p class="score-area">{{test.score}}%</p>
                 <p class="card-text"><a href="/app/test_results/{{test.id}}">{{test.test_name}}</a></p>
-                    <p><small class="text-muted">Test Id: {{test.id}}</small></p>
+                <p class="card-text" style="">Prob & Stats: {{test.avg1}} <span style="padding:1em;">&nbsp;</span> Algebra: {{test.avg2}} <span style="padding:1em;">&nbsp;</span> Geometry: {{test.avg3}} <span style="padding:1em;">&nbsp;</span> Trigonometry: {{test.avg4}}</p>
+
+                    <p><small class="text-muted" style="position:absolute;right:20px;bottom:16px;">Test Id: {{test.id}}</small></p>
                 </div>
               </div>
 
@@ -151,7 +154,7 @@
                   				borderColor: window.chartColors.red,
                   				borderWidth: 1,
                   				data: [
-                  				{{student_cat_counts.0}},
+                  				{{student.cat1_count}},
 
                   				]
                   			}]
@@ -166,7 +169,7 @@
                           borderColor: window.chartColors.green,
                           borderWidth: 1,
                           data: [
-                          {{student_cat_counts.1}},
+                          {{student.cat2_count}},
 
                           ]
                         }]
@@ -181,7 +184,7 @@
                           borderColor: window.chartColors.yellow,
                           borderWidth: 1,
                           data: [
-                          {{student_cat_counts.2}},
+                          {{student.cat3_count}},
 
 
                           ]
@@ -197,7 +200,7 @@
                           borderColor: window.chartColors.blue,
                           borderWidth: 1,
                           data: [
-                          {{student_cat_counts.3}},
+                          {{student.cat4_count}},
 
                           ]
                         }]
@@ -350,8 +353,8 @@
                                     },
                                     ticks: {
                                       min: 0,
-                                      max: 40,
-                                      stepSize: 20,
+                                      max: 90,
+                                      stepSize: 30,
                                       /*  callback: function(dataLabel, index) {
                                           return index % 2 === 0 ? dataLabel : '';
 
@@ -374,7 +377,7 @@
                                   // Use the footer callback to display the sum of the items showing in the tooltip
                                   footer: function(tooltipItems, data) {
 
-                                    return 'Minimum Recommended: 30';
+                                    return 'Minimum Recommended: 60';
                                   },
                                 },
                                 footerFontStyle: 'normal'
@@ -422,8 +425,8 @@
                           					},
                       							ticks: {
                                       min: 0,
-                                      max: 40,
-                                      stepSize: 20,
+                                      max: 90,
+                                      stepSize: 30,
                                       /*  callback: function(dataLabel, index) {
                                           return index % 2 === 0 ? dataLabel : '';
 
@@ -446,7 +449,7 @@
                       						// Use the footer callback to display the sum of the items showing in the tooltip
                       						footer: function(tooltipItems, data) {
 
-                                    return 'Minimum Recommended: 30';
+                                    return 'Minimum Recommended: 60';
                       						},
                       					},
                       					footerFontStyle: 'normal'
@@ -498,8 +501,8 @@
                                     },
                                     ticks: {
                                       min: 0,
-                                      max: 40,
-                                      stepSize: 20,
+                                      max: 90,
+                                      stepSize: 30,
                                       /*  callback: function(dataLabel, index) {
                                           return index % 2 === 0 ? dataLabel : '';
 
@@ -522,7 +525,7 @@
                                   // Use the footer callback to display the sum of the items showing in the tooltip
                                   footer: function(tooltipItems, data) {
 
-                                    return 'Minimum Recommended: 30';
+                                    return 'Minimum Recommended: 60';
                                   },
                                 },
                                 footerFontStyle: 'normal'
@@ -570,8 +573,8 @@
                           					},
                       							ticks: {
                                       min: 0,
-                                      max: 40,
-                                      stepSize: 20,
+                                      max: 90,
+                                      stepSize: 30,
                                     /*  callback: function(dataLabel, index) {
                                         return index % 2 === 0 ? dataLabel : '';
 
@@ -594,7 +597,7 @@
                       						// Use the footer callback to display the sum of the items showing in the tooltip
                       						footer: function(tooltipItems, data) {
 
-                                    return 'Minimum Recommended: 30';
+                                    return 'Minimum Recommended: 60';
                       						},
                       					},
                       					footerFontStyle: 'normal'

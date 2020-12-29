@@ -2,7 +2,7 @@
 {% extends 'tests/base.html' %}
 
 {% block content %}
-    <h3>Q-ID: {{question.id}}<span style="float:right; font-size:0.8em; padding:10px;">{{category}}</span></h3><br>
+    <h3>Q-ID: {{question.id}}<span style="float:right; font-size:0.8em; padding:10px;">Category: {{category}}</span></h3><br>
     {% load template_extras %}
 
 <div class="row">
@@ -68,9 +68,9 @@
     data: {
       datasets: [{
         data: [
-        {{data.correct_attempts}},
-        {{data.incorrect_attempts}},
-        {{data.omitted_attempts}}
+        {{q_data.correct_attempts}},
+        {{q_data.incorrect_attempts}},
+        {{q_data.omitted_attempts}}
         ],
         backgroundColor: [
           window.chartColors.green,
@@ -105,12 +105,12 @@
             window.chartColors.yellow,
             window.chartColors.purple,
           ],
-          borderColor: window.chartColors.red,
+          borderColor: window.chartColors.grey,
           borderWidth: 1,
           data: [ {{data.answered_A}},
-          {{data.answered_B}},
-          {{data.answered_C}},
-          {{data.answered_D}}
+          {{q_data.answered_B}},
+          {{q_data.answered_C}},
+          {{q_data.answered_D}}
         ]
 
         }]

@@ -108,6 +108,9 @@ def getQuestionData(question_id):
         "answered_C":answered_C,
         "answered_D":answered_D
     }
+    print("question data")
+    print(data)
+    return data
 
 
 
@@ -516,7 +519,7 @@ def importStudentTest(csv_file_loc):
             else:
                 total_questions +=1
                 import_question_id= int(row[0].strip())
-                import_user_answer= row[1].strip()
+                import_user_answer= row[1].strip().upper()
                 this_question=Question_Data.objects.filter(id=import_question_id)[0]
                 this_category = int(this_question.category_id)
                 if this_category == 1:
@@ -529,7 +532,7 @@ def importStudentTest(csv_file_loc):
                     total_cat_4 +=1
 
 
-                if import_user_answer == "null":
+                if import_user_answer.lower() == "null":
                     calculated_result = "O"
                 else:
                     this_correct_answer = questions.filter(id=import_question_id)[0].correct_answer
